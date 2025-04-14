@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import numpy as np
 from datetime import datetime
+from matplotlib import dates as mdates  
 
 class IndustrialUI:
     def __init__(self, root):
@@ -242,11 +243,11 @@ class IndustrialUI:
         
         if len(self.x_data) > 0:
             # Преобразуем даты в числовой формат для matplotlib
-            dates = plt.dates.date2num(self.x_data)
+            dates = mdates.date2num(self.x_data)  # Исправлено: используем mdates вместо plt.dates
             self.ax.plot_date(dates, self.y_data, '-', color='#1f77b4')
             
             # Форматирование оси X (дата/время)
-            self.ax.xaxis.set_major_formatter(plt.dates.DateFormatter('%H:%M:%S'))
+            self.ax.xaxis.set_major_formatter(mdates.DateFormatter('%H:%M:%S'))
             self.fig.autofmt_xdate()
         
         self.ax.set_ylim(0, 10)
